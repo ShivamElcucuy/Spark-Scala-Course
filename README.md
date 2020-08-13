@@ -105,6 +105,6 @@ DataFrames
 MostPopularSuperHeroDs
 						val idConnection = pairings.groupBy("heroId").agg(sum("noOfConnections") as ("total")).orderBy(desc("total"))
 						-- sum all the fields in the given cllumn grouping them by heroId
-						-- here use arg() function
+						-- here use agg() function
 
 						val key = result.get(0).##()  -- converts any to int type

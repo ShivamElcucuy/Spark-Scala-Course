@@ -23,6 +23,7 @@ object MostPopularSuperHeroDs {
     return hero
   }
   
+  //returns heroId , heroname  tuple
    def parseNames(line: String) : Option[(Int, String)] = {
     var fields = line.split('\"')
     if (fields.length > 1) {
@@ -32,11 +33,7 @@ object MostPopularSuperHeroDs {
     }
   }
    
-   //converts any to int
-  def toInt1(x: Any): Option[Int] = x match {
-  case i: Int => Some(i)
-  case _ => None
-}
+  
  
   /** Our main function where the action happens */
   def main(args: Array[String]) {
@@ -66,7 +63,7 @@ object MostPopularSuperHeroDs {
    
     
    
-    //getting the count of no of connections using hero id
+    //getting the count of no of connections of each heroes using agg and sum
     val idConnection = pairings.groupBy("heroId").agg(sum("noOfConnections") as ("total")).orderBy(desc("total"))
     
     // show top 20 ids
@@ -82,7 +79,8 @@ object MostPopularSuperHeroDs {
     for (result <- mostFamous) {
       // result is just a Row at this point; we need to cast it back.
       // Each row has movieID, count as above.
-      val key = toInt1(result.get(0)).get
+      val key = result.get(0).##()
+      
       val name = namesRdd.lookup(key)(0)
       println(name + " has "+ result.get(1) + " connections")
      }
