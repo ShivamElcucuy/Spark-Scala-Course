@@ -65,7 +65,7 @@ object TopTenMostPopularSuperheroes {
       //coverting to name, no of friends
     //val namesFriends = sortedDescending.map(x => (idName.lookup(x._2)(0), x._1))
     
-    //getting top ten 
+    //getting top ten entry using take(10)
     val topTen = sortedDescending.take(10)
     val lastTen = sortedAscending.take(10)
     
